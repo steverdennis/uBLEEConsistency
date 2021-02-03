@@ -13,7 +13,7 @@ def get_frame(files=default_files):
   data_frame = pd.DataFrame()
   
   for event in tree:
-    myyevent = NuEvent
+    myevent = NuEvent()
     
     myevent.run = event.run
     
