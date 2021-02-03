@@ -1,8 +1,11 @@
 from dataclasses import dataclass
 
+int_default   = -1
+float_default = -999.
+
 @dataclass
 class NuEvent:
-  run: int = -1
-  subrun: int = -1
+  run:    int = int_default
+  subrun: int = int_default
   
-  enu_true: float = -999.
+  enu_true: float = float_default
