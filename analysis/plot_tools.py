@@ -97,12 +97,13 @@ def plot_breakdown_numu_1d(df,x_range,normalise=False,
   stack_labels = [r"BNB $\nu_{\mu}$ CCQE",r"BNB $\nu_{\mu}$ CCMEC",r"BNB $\nu_{\mu}$ CCRes",r"BNB $\nu_{\mu}$ CCOther",r"$\nu_{e}$ Inclusive","NC Inclusive"]
   total = sum([s.event_weight.sum() for s in all_stacks])
   
-  print("CCQE:" ,hknumuCCQE    .event_weight.sum(),"\t",to2dp.format(100*hknumuCCQE    .event_weight.sum()/total),file=print_stream)
-  print("CCMEC:",hknumuMEC     .event_weight.sum(),"\t",to2dp.format(100*hknumuMEC     .event_weight.sum()/total),file=print_stream)
-  print("CCRES:",hknumuRes     .event_weight.sum(),"\t",to2dp.format(100*hknumuRes     .event_weight.sum()/total),file=print_stream)
-  print("CCoth:",hknumuCCOther .event_weight.sum(),"\t",to2dp.format(100*hknumuCCOther .event_weight.sum()/total),file=print_stream)
-  print("nuECC:",hknuEInclusive.event_weight.sum(),"\t",to2dp.format(100*hknuEInclusive.event_weight.sum()/total),file=print_stream)
-  print("NC:"   ,hkNCInclusive .event_weight.sum(),"\t",to2dp.format(100*hkNCInclusive .event_weight.sum()/total),file=print_stream)
+  print("CCQE:" ,hknumuCCQE    .event_weight.sum(),"\t",to2dp.format(100*hknumuCCQE    .event_weight.sum()/total)+"%",file=print_stream)
+  print("CCMEC:",hknumuMEC     .event_weight.sum(),"\t",to2dp.format(100*hknumuMEC     .event_weight.sum()/total)+"%",file=print_stream)
+  print("CCRES:",hknumuRes     .event_weight.sum(),"\t",to2dp.format(100*hknumuRes     .event_weight.sum()/total)+"%",file=print_stream)
+  print("CCoth:",hknumuCCOther .event_weight.sum(),"\t",to2dp.format(100*hknumuCCOther .event_weight.sum()/total)+"%",file=print_stream)
+  print("nuECC:",hknuEInclusive.event_weight.sum(),"\t",to2dp.format(100*hknuEInclusive.event_weight.sum()/total)+"%",file=print_stream)
+  print("NC:"   ,hkNCInclusive .event_weight.sum(),"\t",to2dp.format(100*hkNCInclusive .event_weight.sum()/total)+"%",file=print_stream)
+  print("Total:",total,file=print_stream)
   
   norm_weight = 1.
   if normalise: norm_weight = 1/total
@@ -137,6 +138,36 @@ def plot_breakdown_numu_1d(df,x_range,normalise=False,
   params = {'axes.labelsize': 22,'axes.titlesize':22, 'legend.fontsize': 20, 'xtick.labelsize': 22, 'ytick.labelsize': 22}#text.fontsize
   matplotlib.rcParams.update(params)
   return
+  
+def plot_1d(df,x_range,normalise=False,
+    quantity_func=get_ereco, nbins=16,
+    x_title="",
+    colors=default_colors,
+    print_stream=def_stream):
+  
+  all_stacks = [df]
+  total = sum([s.event_weight.sum() for s in all_stacks])
+  
+  norm_weight = 1.
+  if normalise: norm_weight = 1/total
+  
+  x = [quantity_func(s) for s in all_stacks]
+  y = [s.event_weight * norm_weight for s in all_stacks]
+  
+  print("Total:",total,file=print_stream)
+  
+  plt.figure(figsize=(15,10))
+
+  n, edges, patches = plt.hist(x, nbins,range=x_range,histtype='bar',
+    weights=y)
+
+  plt.xlabel(x_title, fontsize=22)
+  
+  plt.rc('xtick',labelsize=22)
+  plt.rc('ytick',labelsize=22)
+  params = {'axes.labelsize': 22,'axes.titlesize':22, 'legend.fontsize': 20, 'xtick.labelsize': 22, 'ytick.labelsize': 22}#text.fontsize
+  matplotlib.rcParams.update(params)
+  return
 
 def plot_2d(df,normalise=False,
     x_quantity_func=get_ereco,
@@ -151,7 +182,12 @@ def plot_2d(df,normalise=False,
   
   # Do we normalise
   norm_weight = 1.
-  if normalise: norm_weight = 1./sum(df.event_weight)
+  if normalise:
+    try:
+      norm_weight = 1./sum(df.event_weight)
+    except:
+      print("plot_tools/plot2d: Normalisation is zero, giving up")
+      return
   
   # Make the series
   x = x_quantity_func(df)
