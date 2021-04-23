@@ -47,12 +47,12 @@ def main():
   dllee_reco_title = 'DLLEE Neutrino reconstructed energy [MeV]'
   true_title = 'Neutrino true energy [MeV]'
   print("PeLEE")
-  plot_breakdown_nue_1d(pelee_nue_data,x_range=my_e_range,nbins=my_nbins,quantity_func=get_ereco,x_title=reco_title)
+  plot_breakdown_nue_1d(pelee_nue_data,x_range=my_e_range,nbins=my_nbins,quantity_func=get_ereco,x_title=reco_title,print_stream=sys.stdout)
   plt.savefig('pelee_nue_reco.png')
   plot_breakdown_nue_1d(pelee_nue_data,x_range=my_e_range,nbins=my_nbins,quantity_func=get_etrue)
   plt.savefig('pelee_nue_true.png')
   print("DLLEE")
-  plot_breakdown_nue_1d(dllee_nue_data,x_range=my_e_range,nbins=my_nbins,quantity_func=get_ereco,x_title=reco_title)
+  plot_breakdown_nue_1d(dllee_nue_data,x_range=my_e_range,nbins=my_nbins,quantity_func=get_ereco,x_title=reco_title,print_stream=sys.stdout)
   plt.savefig('dllee_nue_reco.png')
   plot_breakdown_nue_1d(dllee_nue_data,x_range=my_e_range,nbins=my_nbins,quantity_func=get_etrue)
   plt.savefig('dllee_nue_true.png')
@@ -68,7 +68,7 @@ def main():
   plt.savefig('dllee_nue_reco_vs_true.png')
   
   print("Both, PeLEE Reco")
-  plot_breakdown_nue_1d(both_pelee_reco,x_range=my_e_range,nbins=my_nbins,quantity_func=get_ereco,x_title=pelee_reco_title)
+  plot_breakdown_nue_1d(both_pelee_reco,x_range=my_e_range,nbins=my_nbins,quantity_func=get_ereco,x_title=pelee_reco_title,print_stream=sys.stdout)
   plt.savefig('both_nue_pelee_reco.png')
   print("Both, DLLEE Reco")
   plot_breakdown_nue_1d(both_dllee_reco,x_range=my_e_range,nbins=my_nbins,quantity_func=get_ereco,x_title=dllee_reco_title)
@@ -123,6 +123,11 @@ def main():
     x_quantity_func=get_etrue, x_title=true_title,
     y_quantity_func=lambda s: s.enu_reco_pelee-s.enu_reco_dllee, y_title="PeLEE-DLLEE Reco Neutrino Energy [MeV]", y_range=[-200,200])
   plt.savefig('both_nue_reco_diff_vs_true.png')
+  
+  plot_breakdown_nue_1d(pelee_nue_data,x_range=[-400,400],nbins=80,quantity_func=lambda s: s.enu_reco-s.enu_true,x_title="PeLEE Ereco - Etrue [MeV]")
+  plt.savefig('pelee_reco_minus_true.png')
+  plot_breakdown_nue_1d(dllee_nue_data,x_range=[-400,400],nbins=80,quantity_func=lambda s: s.enu_reco-s.enu_true,x_title="DLLEE Ereco - Etrue [MeV]")
+  plt.savefig('dllee_reco_minus_true.png')
     
 if __name__ == "__main__":
   main()

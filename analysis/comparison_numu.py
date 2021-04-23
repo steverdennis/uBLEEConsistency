@@ -1,11 +1,13 @@
 #!/usr/bin/env python
+import sys
+
 import ROOT as R
 import pandas as pd
 import numpy as np
 import matplotlib
 import matplotlib.pyplot as plt
 
-import uBLEEConsistency.datasets.DLLEE_numu_tree as dllee_set
+import uBLEEConsistency.datasets.DLLEE_numu_tree_run3 as dllee_set
 import uBLEEConsistency.datasets.PeLEE_numu_v08_00_00_48_0928 as pelee_set
 
 from uBLEEConsistency.analysis.plot_tools import plot_breakdown_numu_1d,plot_2d
@@ -50,12 +52,12 @@ def main():
   dllee_reco_title = 'DLLEE Neutrino reconstructed energy [MeV]'
   true_title = 'Neutrino true energy [MeV]'
   print("PeLEE")
-  plot_breakdown_numu_1d(pelee_numu_data,x_range=my_e_range,nbins=my_nbins,quantity_func=get_ereco,x_title=reco_title)
+  plot_breakdown_numu_1d(pelee_numu_data,x_range=my_e_range,nbins=my_nbins,quantity_func=get_ereco,x_title=reco_title,print_stream=sys.stdout)
   plt.savefig('pelee_numu_reco.png')
   plot_breakdown_numu_1d(pelee_numu_data,x_range=my_e_range,nbins=my_nbins,quantity_func=get_etrue)
   plt.savefig('pelee_numu_true.png')
   print("DLLEE")
-  plot_breakdown_numu_1d(dllee_numu_data,x_range=my_e_range,nbins=my_nbins,quantity_func=get_ereco,x_title=reco_title)
+  plot_breakdown_numu_1d(dllee_numu_data,x_range=my_e_range,nbins=my_nbins,quantity_func=get_ereco,x_title=reco_title,print_stream=sys.stdout)
   plt.savefig('dllee_numu_reco.png')
   plot_breakdown_numu_1d(dllee_numu_data,x_range=my_e_range,nbins=my_nbins,quantity_func=get_etrue)
   plt.savefig('dllee_numu_true.png')
@@ -71,7 +73,7 @@ def main():
   plt.savefig('dllee_numu_reco_vs_true.png')
   
   print("Both, PeLEE Reco")
-  plot_breakdown_numu_1d(both_pelee_reco,x_range=my_e_range,nbins=40,quantity_func=get_ereco,x_title=pelee_reco_title)
+  plot_breakdown_numu_1d(both_pelee_reco,x_range=my_e_range,nbins=40,quantity_func=get_ereco,x_title=pelee_reco_title,print_stream=sys.stdout)
   plt.savefig('both_numu_pelee_reco.png')
   print("Both, DLLEE Reco")
   plot_breakdown_numu_1d(both_dllee_reco,x_range=my_e_range,nbins=40,quantity_func=get_ereco,x_title=dllee_reco_title)
