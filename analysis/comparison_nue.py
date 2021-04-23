@@ -117,6 +117,12 @@ def main():
     x_quantity_func=lambda s: s.enu_reco_dllee, x_title=dllee_reco_title,
     y_quantity_func=get_etrue, y_title=true_title)
   plt.savefig('both_nue_dllee_reco_vs_true.png')
+  
+  # Ereco-Etrue 2d
+  plot_2d(both_pelee_reco,normalise=True,
+    x_quantity_func=get_etrue, x_title=true_title,
+    y_quantity_func=lambda s: s.enu_reco_pelee-s.enu_reco_dllee, y_title="PeLEE-DLLEE Reco Neutrino Energy [MeV]", y_range=[-200,200])
+  plt.savefig('both_nue_reco_diff_vs_true.png')
     
 if __name__ == "__main__":
   main()
