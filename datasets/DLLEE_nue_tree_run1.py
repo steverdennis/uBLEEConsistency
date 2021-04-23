@@ -4,7 +4,7 @@ import pandas as pd
 
 def get_datasets(force_trees = False, write_csv=True):
 
-  csv_name = "/uboone/data/sdennis/consistency/dllee/input_to_sbnfit_v48_Sep24_withExtraGENIE_1e1p_Feb08.csv"
+  csv_name = "/uboone/data/sdennis/consistency/dllee/input_to_sbnfit_v48_Sep24_withExtraGENIE_1e1p_Feb08_run1.csv"
   if not force_trees:
     try:
       print("Attempting to read",csv_name)
@@ -13,8 +13,6 @@ def get_datasets(force_trees = False, write_csv=True):
     
   files = [
    "/uboone/data/sdennis/consistency/dllee/tree/input_to_sbnfit_v48_Sep24_withExtraGENIE_1e1p_run1_Feb09.root",
-   "/uboone/data/sdennis/consistency/dllee/tree/input_to_sbnfit_v48_Sep24_withExtraGENIE_1e1p_run2_Feb09.root",
-   "/uboone/data/sdennis/consistency/dllee/tree/input_to_sbnfit_v48_Sep24_withExtraGENIE_1e1p_run3_Feb09.root"
   ]
 
   frames = [Read_DLLEE_Trees.get_frame([f],treename="sel_nue_tree") for f in files]

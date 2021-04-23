@@ -4,7 +4,12 @@ import numpy as np
 import pandas as pd
 
 
-def get_datasets():
+def get_datasets(force_trees =False , write_csv = True):
+  
+  csv_name = "/uboone/data/sdennis/consistency/pelee/nue_1e0p_v08_00_00_48_0928.csv"
+  if not force_trees:
+    try: return pd.read_csv(csv_name)
+    except: print("Falling back on trees")
   
   def get_frame(filename,weight):
     return readers.get_frame([(filename,weight)],weight_branches=["weightSplineTimesTune"])
@@ -23,6 +28,11 @@ def get_datasets():
   df_1e0p_MC_BNB['IsDirt'] = 0
 
   df_all = pd.concat(df_1e0p)
+  
+  df_all.sort_values(["run","subrun","event","enu_true"],inplace=True)
+  
+  if write_csv:
+    df_all.to_csv(csv_name)
   
   return df_all
 
