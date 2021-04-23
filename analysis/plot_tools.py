@@ -130,7 +130,7 @@ def plot_breakdown_numu_1d(df,x_range,normalise=False,
   
   plt.legend(label_patches,stack_labels,fontsize=20)
 
-  plt.xlabel('Neutrino reconstructed energy [MeV]', fontsize=22)
+  plt.xlabel(x_title, fontsize=22)
   
   plt.rc('xtick',labelsize=22)
   plt.rc('ytick',labelsize=22)
