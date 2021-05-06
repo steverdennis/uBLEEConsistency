@@ -19,18 +19,21 @@ class NuEvent:
 
   enu_true:float = float_default # both in MeV
   enu_reco:float = float_default # both in MeV
-  #nu_energy_true:float = float_default
-  #nu_energy_reco:float = float_default
-  event_weight:float = float_default#(xsec_corr_weight)
-  lepton_theta_reco:float = float_default#reco lepton angle
-  lepton_momentum_reco:float = float_default#Not yet needed
+  
+  event_weight:float = float_default     
+  lepton_theta_reco:float = float_default
+  lepton_energy_reco:float = float_default
+  proton_theta_reco:float = float_default
+  proton_energy_reco:float = float_default
   
   reco_nuvtx_x:float = float_default
   reco_nuvtx_y:float = float_default
   reco_nuvtx_z:float = float_default
   
+  # WC
   numu_cc_flag:int = int_default
   nue_cc_flag:int = int_default
+  match_isFC:int = int_default
   
   numu_score:float = float_default
   nue_score:float = float_default
