@@ -32,15 +32,18 @@ def read_csv(filename,ereco_name="Enu_1e1p"):
   for w in weights:
     if not w in input_frame:
       input_frame[w] = 1.
-  
+      
   # make a pure weight column based on the product of existing weights
   input_frame["event_weight"] = input_frame.apply(lambda row: np.prod([getattr(row,w) for w in weights]),axis=1)
+  
+  # Cut on sigprobavg:
+  selected_frame = input_frame.loc[(input_frame["sigprobavg"]>0.95)]
   
   needed_columns = dict(columns)
   needed_columns[ereco_name] = "enu_reco"
   needed_columns["event_weight"] = "event_weight"
   
-  output_frame = input_frame[needed_columns.keys()]
+  output_frame = selected_frame[needed_columns.keys()]
   output_frame = output_frame.rename(needed_columns,axis="columns")
   
   output_frame.sort_values(["run","subrun","event","enu_true"],inplace=True)

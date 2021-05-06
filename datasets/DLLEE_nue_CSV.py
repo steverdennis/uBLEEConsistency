@@ -14,7 +14,10 @@ def get_datasets(force_original = True, write_csv=True):
   files = [
    "/uboone/data/sdennis/consistency/dllee/forCons_copied_2021_05_06/nue/new_sample/FinalSelection/avgscore/eventlist_overlay_run1.txt",
    "/uboone/data/sdennis/consistency/dllee/forCons_copied_2021_05_06/nue/new_sample/FinalSelection/avgscore/eventlist_overlay_run2.txt",
-   "/uboone/data/sdennis/consistency/dllee/forCons_copied_2021_05_06/nue/new_sample/FinalSelection/avgscore/eventlist_overlay_run3.txt"
+   "/uboone/data/sdennis/consistency/dllee/forCons_copied_2021_05_06/nue/new_sample/FinalSelection/avgscore/eventlist_overlay_run3.txt",
+   "/uboone/data/sdennis/consistency/dllee/forCons_copied_2021_05_06/nue/new_sample/FinalSelection/avgscore/eventlist_intrinsics_run1.txt",
+   "/uboone/data/sdennis/consistency/dllee/forCons_copied_2021_05_06/nue/new_sample/FinalSelection/avgscore/eventlist_intrinsics_run2.txt",
+   "/uboone/data/sdennis/consistency/dllee/forCons_copied_2021_05_06/nue/new_sample/FinalSelection/avgscore/eventlist_intrinsics_run3.txt"
   ]
 
   frames = [Read_DLLEE_CSV_nue.read_csv(f) for f in files]
