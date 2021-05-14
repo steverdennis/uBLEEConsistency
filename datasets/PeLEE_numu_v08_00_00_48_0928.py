@@ -1,9 +1,9 @@
 #import uBLEEConsistency
-from uBLEEConsistency.input_readers import Read_PeLEE_Trees as readers
+from uBLEEConsistency.input_readers import Read_PeLEE_Trees_numu as readers
 import numpy as np
 import pandas as pd
 
-def get_datasets(force_trees =False , write_csv = True):
+def get_datasets(force_trees = False , write_csv = True):
   csv_name = "/uboone/data/sdennis/consistency/pelee/numu_v08_00_00_48_0928.csv"
   if not force_trees:
     try: return pd.read_csv(csv_name)
