@@ -11,7 +11,7 @@ columns = {
   "EnuTrue"         : "enu_true",
   "ccnc"            : "IsNC",
   "Lepton_ThetaReco": "lepton_theta_reco",
-  "Electron_Edep"   : "lepton_energy_reco",
+  "Muon_Edep"       : "lepton_energy_reco",
   "Proton_ThetaReco": "proton_theta_reco",
   "Proton_Edep"     : "proton_energy_reco",
   "Xreco"           : "reco_nuvtx_x",
@@ -21,7 +21,7 @@ columns = {
 
 weights = ["GENIE_weight","LEE_weight","POTweight"]
 
-def read_csv(filename,ereco_name="Enu_1e1p"):
+def read_csv(filename,ereco_name="Enu_1m1p"):
   delim = ","
   if ".txt" in filename: delim = " "
   input_frame = pandas.read_csv(filename,delim)
@@ -37,7 +37,8 @@ def read_csv(filename,ereco_name="Enu_1e1p"):
   # make a pure weight column based on the product of existing weights
   input_frame["event_weight"] = input_frame.apply(lambda row: np.prod([getattr(row,w) for w in weights]),axis=1)
   
-  selected_frame = input_frame.loc[input_frame["sigprobavg"] > 0.95]
+  # no additional selection here
+  selected_frame = input_frame
   
   needed_columns = dict(columns)
   needed_columns[ereco_name] = "enu_reco"
@@ -49,8 +50,8 @@ def read_csv(filename,ereco_name="Enu_1e1p"):
   output_frame.sort_values(["run","subrun","event","enu_true"],inplace=True)
   
   # add a dummy neutrino type, interaction mode
-  output_frame["nu_pdg_init"        ] = 12
-  output_frame["nu_pdg_final"       ] = 12
+  output_frame["nu_pdg_init"        ] = 14
+  output_frame["nu_pdg_final"       ] = 14
   output_frame["nu_interaction_mode"] = 0 # QE
   
   # Convert radians to degrees
