@@ -2,25 +2,19 @@ from uBLEEConsistency.input_readers import Read_WC_Trees as readers
 import numpy as np
 import pandas as pd
 
-def get_datasets(force_trees = False, write_csv = True):
+def get_datasets(force_trees = False, write_csv= True):
   
-  # ~ csv_name = "/uboone/data/sdennis/consistency/wirecell/allruns_bnb_plus_intrinsic_unselected.csv"
-  csv_name = "/uboone/data/sdennis/consistency/wirecell/allruns_bnb_plus_intrinsic_nueCC.csv"
-  # ~ csv_name = "/uboone/data/sdennis/consistency/wirecell/allruns_intrinsic_only_nueCC.csv"
+  csv_name = "/uboone/data/sdennis/consistency/wirecell/run2_bnb_plus_intrinsic_nueCC.csv"
+
   if not force_trees:
     try: return pd.read_csv(csv_name)
     except: print("Falling back on trees")
   
   files_and_weights = [
-                       ("/pnfs/uboone/scratch/users/jjo/to/consistency_group/unselected/checkout_prodgenie_bnb_nu_overlay_run1.root", 1.),
                        ("/pnfs/uboone/scratch/users/jjo/to/consistency_group/unselected/checkout_prodgenie_bnb_nu_overlay_run2.root",1),
-                       ("/pnfs/uboone/scratch/users/jjo/to/consistency_group/unselected/checkout_prodgenie_bnb_nu_overlay_run3.root",1),
-                       ("/pnfs/uboone/scratch/users/jjo/to/consistency_group/unselected/checkout_prodgenie_bnb_intrinsic_nue_overlay_run1.root",1),
                        ("/pnfs/uboone/scratch/users/jjo/to/consistency_group/unselected/checkout_prodgenie_bnb_intrinsic_nue_overlay_run2.root",1),
-                       ("/pnfs/uboone/scratch/users/jjo/to/consistency_group/unselected/checkout_prodgenie_bnb_intrinsic_nue_overlay_run3.root",1)]
+                      ]
                        
-  # ~ df_nue_MC_FC = readers.get_frame([("/uboone/data/sdennis/consistency/wirecell/checkout_prodgenie_bnb_nu_overlay_run1_nueCC_FC.root", 1.)], [])
-  # ~ df_nue_MC_PC = readers.get_frame([("/uboone/data/sdennis/consistency/wirecell/checkout_prodgenie_bnb_nu_overlay_run1_nueCC_PC.root", 1.)], [])
   
   df_nue_MC_all = readers.get_frame(files_and_weights, weight_branches=[])
   

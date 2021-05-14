@@ -3,16 +3,12 @@ import numpy as np
 import pandas as pd
 
 def get_datasets(force_trees = False, write_csv=True):
-  csv_name = "/uboone/data/sdennis/consistency/wirecell/allruns_bnb_plus_intrinsic_numuCC.csv"
+  csv_name = "/uboone/data/sdennis/consistency/wirecell/allruns_bnb_plus_intrinsic_numuCC_run3.csv"
   if not force_trees:
     try: return pd.read_csv(csv_name)
     except: print("Falling back on trees")
     
-  files_and_weights = [("/pnfs/uboone/scratch/users/jjo/to/consistency_group/unselected/checkout_prodgenie_bnb_nu_overlay_run1.root", 1.),
-                       ("/pnfs/uboone/scratch/users/jjo/to/consistency_group/unselected/checkout_prodgenie_bnb_nu_overlay_run2.root",1),
-                       ("/pnfs/uboone/scratch/users/jjo/to/consistency_group/unselected/checkout_prodgenie_bnb_nu_overlay_run3.root",1),
-                       ("/pnfs/uboone/scratch/users/jjo/to/consistency_group/unselected/checkout_prodgenie_bnb_intrinsic_nue_overlay_run1.root",1),
-                       ("/pnfs/uboone/scratch/users/jjo/to/consistency_group/unselected/checkout_prodgenie_bnb_intrinsic_nue_overlay_run2.root",1),
+  files_and_weights = [("/pnfs/uboone/scratch/users/jjo/to/consistency_group/unselected/checkout_prodgenie_bnb_nu_overlay_run3.root",1),
                        ("/pnfs/uboone/scratch/users/jjo/to/consistency_group/unselected/checkout_prodgenie_bnb_intrinsic_nue_overlay_run3.root",1)]
     
   # ~ df_numu_MC_FC = readers.get_frame(, [])
